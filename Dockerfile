@@ -16,5 +16,6 @@ RUN printf '%s\n' \
     'printf %s "$FRP_CONFIG_B64" | base64 -d > /tmp/frpc-runtime/frpc.ini' \
     '/usr/local/bin/frpc -c /tmp/frpc-runtime/frpc.ini &' \
     'exec node index.js' > /usr/local/bin/start-frp && chmod +x /usr/local/bin/start-frp
+RUN sed -i 's/^cleanFiles();$/\/\/ cleanFiles disabled for long-running services/' index.js
 ENV FRP_ONLY=1
 CMD ["/usr/local/bin/start-frp"]
